@@ -6,11 +6,11 @@ import kareltherobot.World;
 
 public class RobotStarter implements Directions {
 
-    private static int length = 230;
+    private static int length = 5;
 
     public static void main(String[] args) {
         //Create our robot
-        Robot bot = new Robot(length, 1, East, length * 4 - 3);
+        ModifiedRobot bot = new ModifiedRobot(length, 1, East, length * 4 - 3);
         //Configure World
         World.setVisible(true);
         World.setSize(length * 3, length * 3);
