@@ -81,6 +81,14 @@ public class ModifiedRobot extends Robot implements Directions {
         }
     }
 
+    public void drawTriangle(int length) {
+        putBeeper();
+        moveDiagonal(length - 1, new Direction[]{South, East}, true);
+        turnTowards(West);
+        go(length * 2 - 2, true);
+        moveDiagonal(length - 1, new Direction[]{North, East}, true);
+    }
+
     public void drawDiamond(int length) {
         putBeeper();
         moveDiagonal(length - 1, new Direction[]{North, East}, true);
