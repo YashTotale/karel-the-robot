@@ -5,9 +5,14 @@ public class ModifiedRobot extends Robot implements Directions {
         super(street, avenue, facing, beepers);
     }
 
-    public void go(int times) {
+    // Base Functions
+
+    public void go(int times, boolean withBeeper) {
         for (int i = 0; i < times; i++) {
             move();
+            if(withBeeper) {
+                putBeeper();
+            }
         }
     }
 
@@ -54,5 +59,24 @@ public class ModifiedRobot extends Robot implements Directions {
             return WestVal;
         }
         return NorthVal;
+    }
+
+    // Shapes
+
+    public void drawSquare(int length) {
+        Direction[] directions = {East, South, West, North};
+        putBeeper();
+        for(int i = 0; i < directions.length; i++) {
+            turnTowards(directions[i]);
+            go(length - 1, true);
+        }
+    }
+
+    public void drawDiamond(int length) {
+        putBeeper();
+        moveDiagonal(length -1, new Direction[]{North, East}, true);
+        moveDiagonal(length -1, new Direction[]{South, East}, true);
+        moveDiagonal(length -1, new Direction[]{South, West}, true);
+        moveDiagonal(length -1, new Direction[]{North, West}, true);
     }
 }
