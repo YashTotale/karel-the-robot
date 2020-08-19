@@ -7,6 +7,10 @@ public class ModifiedRobot extends Robot implements Directions {
 
     // Base Functions
 
+    /**
+     * @param times The number of times the robot should move
+     * @param withBeeper Whether the robot will put a beeper each time it moves
+     */
     public void go(int times, boolean withBeeper) {
         for (int i = 0; i < times; i++) {
             move();
@@ -16,12 +20,18 @@ public class ModifiedRobot extends Robot implements Directions {
         }
     }
 
+    /**
+     * @param times The number of times the robot should turn
+     */
     public void turn(int times) {
         for (int i = 0; i < times; i++) {
             turnLeft();
         }
     }
 
+    /**
+     * @param towards The direction to turn towards
+     */
     public void turnTowards(Direction towards) {
         int currentVal = getDirectionVal(direction());
         int towardsVal = getDirectionVal(towards);
@@ -33,6 +43,11 @@ public class ModifiedRobot extends Robot implements Directions {
         turn(turns);
     }
 
+    /**
+     * @param times The number of times the robot should move diagonally
+     * @param directions 2 directions that specify the direction of movement
+     * @param withBeeper Whether the robot should put a beeper each time it moves diagonally
+     */
     public void moveDiagonal(int times, Direction[] directions, boolean withBeeper) {
         if (directions.length != 2) {
             throw new IllegalArgumentException("Exactly 2 directions must be passed in");
@@ -48,6 +63,11 @@ public class ModifiedRobot extends Robot implements Directions {
         }
     }
 
+
+    /**
+     * @param direction The direction to get the value for
+     * @return The integer representation of the direction
+     */
     private static int getDirectionVal(Direction direction) {
         if (direction == East) {
             return EastVal;
@@ -63,6 +83,9 @@ public class ModifiedRobot extends Robot implements Directions {
 
     // Shapes
 
+    /**
+     * @param length The length of each side of the square
+     */
     public void drawSquare(int length) {
         Direction[] directions = {East, South, West, North};
         putBeeper();
@@ -72,6 +95,10 @@ public class ModifiedRobot extends Robot implements Directions {
         }
     }
 
+    /**
+     * @param base The base of the rectangle
+     * @param height The height of the rectangle
+     */
     public void drawRect(int base, int height) {
         Direction[] directions = {East, South, West, North};
         putBeeper();
@@ -81,6 +108,9 @@ public class ModifiedRobot extends Robot implements Directions {
         }
     }
 
+    /**
+     * @param length The length of 2 sides of the triangle
+     */
     public void drawTriangle(int length) {
         putBeeper();
         moveDiagonal(length - 1, new Direction[]{South, East}, true);
@@ -89,6 +119,10 @@ public class ModifiedRobot extends Robot implements Directions {
         moveDiagonal(length - 1, new Direction[]{North, East}, true);
     }
 
+
+    /**
+     * @param length The length of each side of the diamond
+     */
     public void drawDiamond(int length) {
         putBeeper();
         moveDiagonal(length - 1, new Direction[]{North, East}, true);
