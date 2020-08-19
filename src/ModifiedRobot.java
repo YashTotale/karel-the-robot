@@ -10,7 +10,7 @@ public class ModifiedRobot extends Robot implements Directions {
     public void go(int times, boolean withBeeper) {
         for (int i = 0; i < times; i++) {
             move();
-            if(withBeeper) {
+            if (withBeeper) {
                 putBeeper();
             }
         }
@@ -27,8 +27,8 @@ public class ModifiedRobot extends Robot implements Directions {
         int towardsVal = getDirectionVal(towards);
         System.out.println(towardsVal);
         int turns = currentVal - towardsVal;
-        if(turns < 0) {
-            turns+=4;
+        if (turns < 0) {
+            turns += 4;
         }
         turn(turns);
     }
@@ -38,11 +38,11 @@ public class ModifiedRobot extends Robot implements Directions {
             throw new IllegalArgumentException("Exactly 2 directions must be passed in");
         }
         for (int i = 0; i < times; i++) {
-            for(int x = 0; x < directions.length; x++) {
+            for (int x = 0; x < directions.length; x++) {
                 turnTowards(directions[x]);
                 move();
             }
-            if(withBeeper) {
+            if (withBeeper) {
                 putBeeper();
             }
         }
@@ -66,17 +66,26 @@ public class ModifiedRobot extends Robot implements Directions {
     public void drawSquare(int length) {
         Direction[] directions = {East, South, West, North};
         putBeeper();
-        for(int i = 0; i < directions.length; i++) {
+        for (int i = 0; i < directions.length; i++) {
             turnTowards(directions[i]);
             go(length - 1, true);
         }
     }
 
+    public void drawRect(int base, int height) {
+        Direction[] directions = {East, South, West, North};
+        putBeeper();
+        for (int i = 0; i < directions.length; i++) {
+            turnTowards(directions[i]);
+            go(i % 2 == 0 ? base - 1 : height - 1, true);
+        }
+    }
+
     public void drawDiamond(int length) {
         putBeeper();
-        moveDiagonal(length -1, new Direction[]{North, East}, true);
-        moveDiagonal(length -1, new Direction[]{South, East}, true);
-        moveDiagonal(length -1, new Direction[]{South, West}, true);
-        moveDiagonal(length -1, new Direction[]{North, West}, true);
+        moveDiagonal(length - 1, new Direction[]{North, East}, true);
+        moveDiagonal(length - 1, new Direction[]{South, East}, true);
+        moveDiagonal(length - 1, new Direction[]{South, West}, true);
+        moveDiagonal(length - 1, new Direction[]{North, West}, true);
     }
 }
