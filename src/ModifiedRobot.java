@@ -41,6 +41,7 @@ public class ModifiedRobot extends Robot implements Directions {
         if (turns < 0) {
             turns += 4;
         }
+        //Turn
         turn(turns);
     }
 
@@ -49,10 +50,14 @@ public class ModifiedRobot extends Robot implements Directions {
      * @param directions 2 directions that specify the direction of movement
      * @param withBeeper Whether the robot should put a beeper each time it moves diagonally
      * @throws IllegalArgumentException Exactly 2 directions are not given
+     * @throws IllegalArgumentException The 2 directions are the same
      */
     public void moveDiagonal(int times, Direction[] directions, boolean withBeeper) {
         if (directions.length != 2) {
             throw new IllegalArgumentException("Exactly 2 directions must be passed in");
+        }
+        if(directions[0] == directions[1]) {
+            throw new IllegalArgumentException("The directions must be unique");
         }
         for (int i = 0; i < times; i++) {
             for (int x = 0; x < directions.length; x++) {
@@ -136,5 +141,21 @@ public class ModifiedRobot extends Robot implements Directions {
         moveDiagonal(length - 1, new Direction[]{South, East}, true);
         moveDiagonal(length - 1, new Direction[]{South, West}, true);
         moveDiagonal(length - 1, new Direction[]{North, West}, true);
+    }
+
+    /**
+     * @param length Length of the sides of the cross (will be converted to an odd number)
+     */
+    public void drawCross(int length) {
+        int half = length /2;
+        putBeeper();
+        turnTowards(East);
+        go(2 * half, true);
+        turnTowards(West);
+        go(half, false);
+        turnTowards(North);
+        go(half + 1, false);
+        turnTowards(South);
+        go(half * 2 + 1, true);
     }
 }
