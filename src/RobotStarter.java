@@ -13,6 +13,7 @@ public class RobotStarter implements Directions {
          * The length of each side of the diamond
          */
         int length = keyboard.nextInt();
+        keyboard.close();
         System.out.println("You selected: " + length);
 
         //Create our robot
