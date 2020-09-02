@@ -196,22 +196,23 @@ public class ModifiedRobot extends Robot implements Directions {
         moveTo(centerVert, startX, true);
         turnTowards(East);
 
-        int previousY = centerVert;
-
-        for(int x = startX + 1; x <= (radius * 2) + startX; x++) {
-            int yValue = circleEq(radius, x, centerHor, centerVert, false);
-            moveTo(yValue, x, true);
-            if(Math.abs(yValue - previousY) > 1 && x < centerHor) {
-                int min = Math.min(yValue, previousY);
-                int max = Math.max(yValue, previousY);
-                for(int y = min + 1; y < max; y++) {
-                    int posX = circleEq(radius, y, centerVert, centerHor, false);
-                    int negX = circleEq(radius, y, centerVert, centerHor, true);
-                    moveTo(y, posX, true);
-                    moveTo(y, negX, true);
+        for(int i = 0; i < 2; i++) {
+            int previousY = centerVert;
+            for (int x = startX + 1; x <= (radius * 2) + startX; x++) {
+                int yValue = circleEq(radius, x, centerHor, centerVert, i != 0);
+                moveTo(yValue, x, true);
+                if (Math.abs(yValue - previousY) > 1 && x < centerHor) {
+                    int min = Math.min(yValue, previousY);
+                    int max = Math.max(yValue, previousY);
+                    for (int y = min + 1; y < max; y++) {
+                        int posX = circleEq(radius, y, centerVert, centerHor, false);
+                        int negX = circleEq(radius, y, centerVert, centerHor, true);
+                        moveTo(y, posX, true);
+                        moveTo(y, negX, true);
+                    }
                 }
+                previousY = yValue;
             }
-            previousY = yValue;
         }
     }
 
