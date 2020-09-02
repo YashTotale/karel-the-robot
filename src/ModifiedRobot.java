@@ -22,8 +22,9 @@ public class ModifiedRobot extends Robot implements Directions {
     /**
      * @param street The vertical value
      * @param avenue The horizontal value
+     * @param withBeeper Should put beeper after moves are finished
      */
-    public void moveTo(int street, int avenue) {
+    public void moveTo(int street, int avenue, boolean withBeeper) {
         int currentStreet = street();
         int currentAvenue = avenue();
 
@@ -38,6 +39,10 @@ public class ModifiedRobot extends Robot implements Directions {
 
         turnTowards(horizontalDirection);
         go(Math.abs(horizontalMoves), false);
+
+        if(withBeeper) {
+            putBeeper();
+        }
     }
 
     /**
@@ -182,13 +187,39 @@ public class ModifiedRobot extends Robot implements Directions {
 
     /**
      * @param radius The radius of the circle
-     * @param horShift The horizontal shift from x=0
-     * @param vertShift The vertical shift from y=0
+     * @param centerHor The x-coordinate of the circle
+     * @param centerVert The y-coordinate of the circle
      */
-    public void drawCircle(int radius, int horShift, int vertShift) {
-        moveTo(vertShift, horShift);
-        System.out.println(radius);
-        System.out.println(horShift);
-        System.out.println(vertShift);
+    public void drawCircle(int radius, int centerHor, int centerVert) {
+        int startX = centerHor - radius;
+
+        moveTo(centerVert, startX, true);
+        turnTowards(East);
+
+        int previousY = centerVert;
+
+        for(int x = startX + 1; x <= (radius * 2) + startX; x++) {
+            int yValue = circleEq(radius, x, centerHor, centerVert, false);
+            moveTo(yValue, x, true);
+            if(Math.abs(yValue - previousY) > 1 && x < centerHor) {
+                int min = Math.min(yValue, previousY);
+                int max = Math.max(yValue, previousY);
+                for(int y = min + 1; y < max; y++) {
+                    int posX = circleEq(radius, y, centerVert, centerHor, false);
+                    int negX = circleEq(radius, y, centerVert, centerHor, true);
+                    moveTo(y, posX, true);
+                    moveTo(y, negX, true);
+                }
+            }
+            previousY = yValue;
+        }
+    }
+
+    private int circleEq(int radius, int xOrY, int centerVal, int otherCenterVal, boolean isNegative) {
+        int radiusSq = (radius * radius);
+        int distSq = (xOrY - centerVal) * (xOrY -centerVal);
+        double sqRoot = isNegative ? -1 * Math.sqrt( radiusSq - distSq) : Math.sqrt( radiusSq - distSq);
+        double withDecimals = sqRoot + otherCenterVal;
+        return Math.toIntExact(Math.round(withDecimals));
     }
 }

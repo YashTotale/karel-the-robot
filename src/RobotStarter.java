@@ -11,13 +11,13 @@ public class RobotStarter implements Directions {
 
         //Configure World
         World.setVisible(true); //Allows us to see the world
-        World.setSize(10, 10); //Sets the size of the world
-        World.showSpeedControl(true); //Shows a slider that controls the speed
-//        World.setDelay(1); // <- Sets the delay between each robot action
+        World.setSize((radius * 2) + 2, (radius * 2) + 2); //Sets the size of the world
+        World.showSpeedControl(false); //Shows a slider that controls the speed
+        World.setDelay(1); // <- Sets the delay between each robot action
 
         //Create our robot
         ModifiedRobot bot = new ModifiedRobot(1, 1, North, 100);
-        bot.drawCircle(radius, 1, radius);
+        bot.drawCircle(radius, radius + 1, radius + 1);
 
     }
 }
