@@ -158,4 +158,15 @@ public class ModifiedRobot extends Robot implements Directions {
         turnTowards(South);
         go(half * 2 + 1, true);
     }
+
+    /**
+     * @param radius The radius of the circle
+     * @param horShift The horizontal shift from x=0
+     * @param vertShift The vertical shift from y=0
+     */
+    public void drawCircle(int radius, int horShift, int vertShift) {
+        System.out.println(radius);
+        System.out.println(horShift);
+        System.out.println(vertShift);
+    }
 }
