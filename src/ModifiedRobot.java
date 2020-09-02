@@ -20,6 +20,27 @@ public class ModifiedRobot extends Robot implements Directions {
     }
 
     /**
+     * @param street The vertical value
+     * @param avenue The horizontal value
+     */
+    public void moveTo(int street, int avenue) {
+        int currentStreet = street();
+        int currentAvenue = avenue();
+
+        int verticalMoves = street - currentStreet;
+        Direction verticalDirection = verticalMoves >= 0 ? North : South;
+
+        turnTowards(verticalDirection);
+        go(Math.abs(verticalMoves), false);
+
+        int horizontalMoves = avenue - currentAvenue;
+        Direction horizontalDirection = horizontalMoves >= 0 ? East : West;
+
+        turnTowards(horizontalDirection);
+        go(Math.abs(horizontalMoves), false);
+    }
+
+    /**
      * @param times The number of times the robot should turn
      */
     public void turn(int times) {
@@ -165,6 +186,7 @@ public class ModifiedRobot extends Robot implements Directions {
      * @param vertShift The vertical shift from y=0
      */
     public void drawCircle(int radius, int horShift, int vertShift) {
+        moveTo(vertShift, horShift);
         System.out.println(radius);
         System.out.println(horShift);
         System.out.println(vertShift);
