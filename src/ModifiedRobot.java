@@ -195,14 +195,17 @@ public class ModifiedRobot extends Robot implements Directions {
         int startX = centerHor - radius;
 
         //Move to the start, place beeper, turn East
-        moveTo(centerVert, startX, true);
+        moveTo(centerVert, startX, false);
         turnTowards(East);
 
         //Loop through twice (for top and bottom semi circles)
         for(int i = 0; i < 2; i++) {
             int previousY = centerVert;
+            //The start and ends are reversed for top and bottom semis
+            int start = startX;
+            int end = radius * 2 + startX;
             //Go until the semi circle is finished
-            for (int x = startX + 1; x <= (radius * 2) + startX; x++) {
+            for (int x = i == 0 ? start : end; i == 0 ? x <= end : x >= start; x = i== 0 ? x+1 : x-1) {
                 //The y value as an int for the x value
                 int yValue = circleEq(radius, x, centerHor, centerVert, i != 0);
                 //Move to it and place beeper
@@ -214,7 +217,7 @@ public class ModifiedRobot extends Robot implements Directions {
                     int max = Math.max(yValue, previousY);
                     //Loop through the gaps
                     for (int y = min + 1; y < max; y++) {
-                        //Place a beeper for the x value in the gaps
+                        //Place a beeper for the x value corresponding to the y gap in the gaps
                         int xVal = circleEq(radius, y, centerVert, centerHor, x < centerHor);
                         moveTo(y, xVal, true);
                     }
@@ -227,10 +230,10 @@ public class ModifiedRobot extends Robot implements Directions {
     /**
      * @param radius Radius of the circle
      * @param xOrY The value of the x or y coordinate in the equation
-     * @param centerVal The corresponding shift to the x or y value
-     * @param otherCenterVal The other shift
+     * @param centerVal The corresponding vertical/horizontal shift to the x or y value
+     * @param otherCenterVal The other vertical/horizontal shift
      * @param isNegative Whether the square root is negative
-     * @return
+     * @return An x or y coordinate on the circle
      */
     private int circleEq(int radius, int xOrY, int centerVal, int otherCenterVal, boolean isNegative) {
         //Radius squared
