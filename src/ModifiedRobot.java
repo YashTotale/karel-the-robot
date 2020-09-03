@@ -191,20 +191,30 @@ public class ModifiedRobot extends Robot implements Directions {
      * @param centerVert The y-coordinate of the center
      */
     public void drawCircle(int radius, int centerHor, int centerVert) {
+        //Starting x value
         int startX = centerHor - radius;
 
+        //Move to the start, place beeper, turn East
         moveTo(centerVert, startX, true);
         turnTowards(East);
 
+        //Loop through twice (for top and bottom semi circles)
         for(int i = 0; i < 2; i++) {
             int previousY = centerVert;
+            //Go until the semi circle is finished
             for (int x = startX + 1; x <= (radius * 2) + startX; x++) {
+                //The y value as an int for the x value
                 int yValue = circleEq(radius, x, centerHor, centerVert, i != 0);
+                //Move to it and place beeper
                 moveTo(yValue, x, true);
+                //If there are y gaps in between y values
                 if (Math.abs(yValue - previousY) > 1) {
+                    //Get the min and max of them
                     int min = Math.min(yValue, previousY);
                     int max = Math.max(yValue, previousY);
+                    //Loop through the gaps
                     for (int y = min + 1; y < max; y++) {
+                        //Place a beeper for the x value in the gaps
                         int xVal = circleEq(radius, y, centerVert, centerHor, x < centerHor);
                         moveTo(y, xVal, true);
                     }
@@ -223,10 +233,15 @@ public class ModifiedRobot extends Robot implements Directions {
      * @return
      */
     private int circleEq(int radius, int xOrY, int centerVal, int otherCenterVal, boolean isNegative) {
+        //Radius squared
         final int radiusSq = (radius * radius);
+        //Distance squared (x-h)^2 or (y-k)^2
         final int distSq = (xOrY - centerVal) * (xOrY - centerVal);
+        //Positive or negative square root
         final double sqRoot = isNegative ? -1 * Math.sqrt( radiusSq - distSq) : Math.sqrt( radiusSq - distSq);
+        //Add shift
         final double withDecimals = sqRoot + otherCenterVal;
+        //Convert to int
         return Math.toIntExact(Math.round(withDecimals));
     }
 }
