@@ -187,8 +187,8 @@ public class ModifiedRobot extends Robot implements Directions {
 
     /**
      * @param radius The radius of the circle
-     * @param centerHor The x-coordinate of the circle
-     * @param centerVert The y-coordinate of the circle
+     * @param centerHor The x-coordinate of the center
+     * @param centerVert The y-coordinate of the center
      */
     public void drawCircle(int radius, int centerHor, int centerVert) {
         int startX = centerHor - radius;
@@ -214,6 +214,14 @@ public class ModifiedRobot extends Robot implements Directions {
         }
     }
 
+    /**
+     * @param radius Radius of the circle
+     * @param xOrY The value of the x or y coordinate in the equation
+     * @param centerVal The corresponding shift to the x or y value
+     * @param otherCenterVal The other shift
+     * @param isNegative Whether the square root is negative
+     * @return
+     */
     private int circleEq(int radius, int xOrY, int centerVal, int otherCenterVal, boolean isNegative) {
         final int radiusSq = (radius * radius);
         final int distSq = (xOrY - centerVal) * (xOrY - centerVal);
