@@ -3,11 +3,11 @@ import kareltherobot.World;
 
 import javax.swing.JOptionPane;
 
-public class RobotStarter implements Directions {
+public class CircleDrawer implements Directions {
 
     public static void main(String[] args) {
         String answer = JOptionPane.showInputDialog("Enter the radius of the circle");
-        int radius = Integer.parseInt(answer);
+        final int radius = Integer.parseInt(answer);
 
         //Configure World
         World.setVisible(true); //Allows us to see the world
@@ -16,7 +16,7 @@ public class RobotStarter implements Directions {
         World.setDelay(1); // <- Sets the delay between each robot action
 
         //Create our robot
-        ModifiedRobot bot = new ModifiedRobot(1, 1, North, 100);
+        ModifiedRobot bot = new ModifiedRobot(1, 1, North, Math.toIntExact(Math.round(Math.PI * radius * 2)));
         bot.drawCircle(radius, radius + 1, radius + 1);
 
     }

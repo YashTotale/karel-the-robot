@@ -201,14 +201,12 @@ public class ModifiedRobot extends Robot implements Directions {
             for (int x = startX + 1; x <= (radius * 2) + startX; x++) {
                 int yValue = circleEq(radius, x, centerHor, centerVert, i != 0);
                 moveTo(yValue, x, true);
-                if (Math.abs(yValue - previousY) > 1 && x < centerHor) {
+                if (Math.abs(yValue - previousY) > 1) {
                     int min = Math.min(yValue, previousY);
                     int max = Math.max(yValue, previousY);
                     for (int y = min + 1; y < max; y++) {
-                        int posX = circleEq(radius, y, centerVert, centerHor, false);
-                        int negX = circleEq(radius, y, centerVert, centerHor, true);
-                        moveTo(y, posX, true);
-                        moveTo(y, negX, true);
+                        int xVal = circleEq(radius, y, centerVert, centerHor, x < centerHor);
+                        moveTo(y, xVal, true);
                     }
                 }
                 previousY = yValue;
@@ -217,10 +215,10 @@ public class ModifiedRobot extends Robot implements Directions {
     }
 
     private int circleEq(int radius, int xOrY, int centerVal, int otherCenterVal, boolean isNegative) {
-        int radiusSq = (radius * radius);
-        int distSq = (xOrY - centerVal) * (xOrY -centerVal);
-        double sqRoot = isNegative ? -1 * Math.sqrt( radiusSq - distSq) : Math.sqrt( radiusSq - distSq);
-        double withDecimals = sqRoot + otherCenterVal;
+        final int radiusSq = (radius * radius);
+        final int distSq = (xOrY - centerVal) * (xOrY - centerVal);
+        final double sqRoot = isNegative ? -1 * Math.sqrt( radiusSq - distSq) : Math.sqrt( radiusSq - distSq);
+        final double withDecimals = sqRoot + otherCenterVal;
         return Math.toIntExact(Math.round(withDecimals));
     }
 }
