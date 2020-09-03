@@ -235,7 +235,7 @@ public class ModifiedRobot extends Robot implements Directions {
      * @param isNegative Whether the square root is negative
      * @return An x or y coordinate on the circle
      */
-    private int circleEq(int radius, int xOrY, int centerVal, int otherCenterVal, boolean isNegative) {
+    private static final int circleEq(int radius, int xOrY, int centerVal, int otherCenterVal, boolean isNegative) {
         //Radius squared
         final int radiusSq = (radius * radius);
         //Distance squared (x-h)^2 or (y-k)^2
