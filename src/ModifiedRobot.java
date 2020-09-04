@@ -41,7 +41,7 @@ public class ModifiedRobot extends Robot implements Directions {
         go(Math.abs(horizontalMoves), false);
 
         if(withBeeper) {
-            putBeeper();
+            nonRepeatBeeper();
         }
     }
 
@@ -69,6 +69,12 @@ public class ModifiedRobot extends Robot implements Directions {
         }
         //Turn
         turn(turns);
+    }
+
+    public void nonRepeatBeeper() {
+        if(!nextToABeeper()) {
+            putBeeper();
+        }
     }
 
     /**
@@ -239,9 +245,9 @@ public class ModifiedRobot extends Robot implements Directions {
         //Radius squared
         final int radiusSq = (radius * radius);
         //Distance squared (x-h)^2 or (y-k)^2
-        final int distSq = (xOrY - centerVal) * (xOrY - centerVal);
+        final double distSq =  Math.pow((xOrY - centerVal), 2);
         //Positive or negative square root
-        final double sqRoot = isNegative ? -1 * Math.sqrt( radiusSq - distSq) : Math.sqrt( radiusSq - distSq);
+        final double sqRoot = (isNegative ? -1 : 1) * Math.sqrt( radiusSq - distSq);
         //Add shift
         final double withDecimals = sqRoot + otherCenterVal;
         //Convert to int
