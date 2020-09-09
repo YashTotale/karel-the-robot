@@ -6,11 +6,11 @@ import javax.swing.JOptionPane;
 public class CircleDrawer implements Directions {
 
     public static void main(String[] args) {
-        final String worldHeightStr = JOptionPane.showInputDialog("Height of the world ('auto' for auto calculation):");
-        final String worldLengthStr = JOptionPane.showInputDialog("Length of the world ('auto' for auto calculation):");
-        final String radiusStr = JOptionPane.showInputDialog("Radius of the circle:");
-        final String centerXStr = JOptionPane.showInputDialog("X-coordinate of the center of the circle (MUST be greater than radius):");
-        final String centerYStr = JOptionPane.showInputDialog("Y-coordinate of the center of the circle (MUST be greater than radius):");
+        final String worldHeightStr = showInput("Height of the world ('auto' for auto calculation):");
+        final String worldLengthStr = showInput("Length of the world ('auto' for auto calculation):");
+        final String radiusStr = showInput("Radius of the circle:");
+        final String centerXStr = showInput("X-coordinate of the center of the circle (MUST be greater than radius):");
+        final String centerYStr = showInput("Y-coordinate of the center of the circle (MUST be greater than radius):");
 
         final int radius = Integer.parseInt(radiusStr);
         final int centerX = Integer.parseInt(centerXStr);
@@ -27,6 +27,9 @@ public class CircleDrawer implements Directions {
         //Create our robot
         ModifiedRobot bot = new ModifiedRobot(1, 1, North, Math.toIntExact(Math.round(Math.PI * radius * 2)));
         bot.drawCircle(radius, centerX, centerY);
-        bot.moveTo(1, 1, false);
+    }
+
+    private static final String showInput(String message) {
+        return JOptionPane.showInputDialog(message);
     }
 }

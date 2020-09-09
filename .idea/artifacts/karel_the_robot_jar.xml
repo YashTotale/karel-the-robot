@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="karel-the-robot:jar">
+    <output-path>$PROJECT_DIR$/classes/artifacts/karel_the_robot_jar</output-path>
+    <root id="archive" name="karel-the-robot.jar">
+      <element id="module-output" name="karel-the-robot" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/KarelJRobot.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
