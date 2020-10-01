@@ -71,10 +71,26 @@ public class ModifiedRobot extends Robot implements Directions {
         turn(turns);
     }
 
+    /**
+     * Puts a beeper if a beeper is not already placed
+     */
     public void nonRepeatBeeper() {
         if(!nextToABeeper()) {
             putBeeper();
         }
+    }
+
+    /**
+     *
+     * @return The number of moves till the next wall
+     */
+    public int tillWall() {
+        int i = 0;
+        while(frontIsClear()) {
+            move();
+            i++;
+        }
+        return i;
     }
 
     /**
