@@ -3,7 +3,7 @@
 ## What's Included?
 
 - ModifiedRobot class with **extra functionalities**
-  - **Draw Shapes** (Square, Rectangle, Diamond, Cross, Circle)
+  - Draw Shapes (Square, Rectangle, Diamond, Cross, Circle)
   - Turn to a specific direction
   - Move to a specific point
   - Move a certain amount of times
